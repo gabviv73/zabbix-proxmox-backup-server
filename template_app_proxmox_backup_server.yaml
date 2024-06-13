@@ -503,7 +503,10 @@ zabbix_export:
                 key: pbs.disks
               trigger_prototypes:
                 - uuid: 0ebb109edcbc40d095945ca9a530dc5f
-                  expression: 'find(/Proxmox Backup Server by HTTP/pbs.disk.status[{#DISK.PATH}],,"like","unknown")=0'
+                  expression: |
+                    find(/Proxmox Backup Server by HTTP/pbs.disk.status[{#DISK.PATH}],,"like","unknown")=0
+                    or
+                    find(/Proxmox Backup Server by HTTP/pbs.disk.status[{#DISK.PATH}],,"like","passed")=0
                   name: 'PBS: Disk [{#DISK.PATH}] Status indicates a problem'
                   priority: WARNING
                   manual_close: 'YES'
